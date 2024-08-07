@@ -9,7 +9,7 @@ const creatingNewPresentation = async (req, res) =>{
   try {
     const presentation = await Presentation.findOne({'title': req_title});
     if(presentation != null){
-      return res('Title is exist - title need be unique');
+      return res.status(400).send('Title is exist - title need be unique');
     }
 
     const data = new Presentation({
@@ -18,7 +18,6 @@ const creatingNewPresentation = async (req, res) =>{
       publishDate: req_date,
       slides: req_slides,
     })
-
     const newPresentation = await data.save();
     res.status(200).send(newPresentation);
   } catch (err) {
@@ -105,6 +104,7 @@ const addSlideToPresentation = async (req, res) =>{
   }
 }
 
+
 const deleteSlideFromPresentation = async (req, res) =>{
   try {
     const presentation = await Presentation.findOne({'title': req.body.presentationTitle});
@@ -124,11 +124,12 @@ const deleteSlideFromPresentation = async (req, res) =>{
   }
 }
 
-const changeSlideInPresentation = async (req, res) =>{
+
+const changeSlideInPresentation = async (req, res) => {
   try {
-    const presentation = await Presentation.findOne({'title': req.body.presentationTitle});
+    const presentation = await Presentation.findOne({ 'title': req.body.presentationTitle });
     if (!presentation) {
-      return res.status(404).send('Presentations not found');
+      return res.status(404).send('Presentation not found');
     }
     const slideId = req.body.slideId;
     const slideIndex = presentation.slides.findIndex(slide => slide._id.toString() === slideId);
@@ -141,16 +142,16 @@ const changeSlideInPresentation = async (req, res) =>{
     if (req.body.content) {
       presentation.slides[slideIndex].content = req.body.content;
     }
-    if (req.body.order) {
+    if (req.body.name) {
       presentation.slides[slideIndex].nameOfAdd = req.body.name;
     }
-    presentation.slides[slideIndex] = data
     await presentation.save();
     res.status(200).send(presentation);
   } catch (err) {
     res.status(400).send(err);
   }
-}
+};
+
 
 
 module.exports = {

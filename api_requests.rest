@@ -1,0 +1,104 @@
+###
+//get all presenatation
+GET http://localhost:5000/presentations
+
+###
+//create new presenatation
+POST http://localhost:5000/presentations
+Content-Type: application/json
+
+{
+    "title": "Test Presentation 1",
+    "authors": ["Author 1"],
+    "publishDate": "1995-08-07T00:00:00.000Z",
+    "slides": [
+        {
+            "title": "Introduction",
+            "content": "This is the introduction slide.",
+            "nameOfAdd": "Author 1"
+        }
+    ]
+}
+
+###
+//create new presenatation
+POST http://localhost:5000/presentations
+Content-Type: application/json
+
+{
+    "title": "Test Presentation 3",
+    "authors": ["Author 1","Author 2"],
+    "slides": [
+        {
+            "title": "Introduction",
+            "content": "This is the introduction slide.",
+            "nameOfAdd": "Author 1"
+        }
+    ]
+}
+
+###
+//get presenatation by title
+GET http://localhost:5000/presentations/title
+Content-Type: application/json
+
+{
+    "title": "Test Presentation 3"
+}
+
+###
+//delete presenatation
+DELETE http://localhost:5000/presentations
+Content-Type: application/json
+
+{
+    "title": "Test Presentation"
+}
+
+
+###
+//update authors
+PUT http://localhost:5000/presentations/authors
+Content-Type: application/json
+
+{
+    "title": "Test Presentation 3",
+    "authors": ["New Author"],
+    "add": true
+}
+
+###
+//add slide
+POST http://localhost:5000/presentations/slides
+Content-Type: application/json
+
+{
+    "presentationTitle": "Test Presentation 3",
+    "slideTitle": "New Slide 3",
+    "content": "Slide Content",
+    "name": "Author"
+}
+
+###
+//delete slide
+DELETE http://localhost:5000/presentations/slides
+Content-Type: application/json
+
+{
+    "presentationTitle": "Test Presentation 3",
+    "slideId": "66b367094e04398b88de038d"
+}
+
+###
+//update slide
+PUT http://localhost:5000/presentations/slides
+Content-Type: application/json
+
+{
+    "presentationTitle": "Test Presentation 3",
+    "slideId": "66b3698557e516c55f9d8dff",
+    "slideTitle": "Updated Slide ",
+    "content": "Updated Content",
+    "name": "Updated Author"
+}
+
